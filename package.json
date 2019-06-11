@@ -1,0 +1,24 @@
+{
+  "name": "darkpos-backend-next",
+  "version": "1.0.0",
+  "description": "",
+  "main": "service.js",
+  "scripts": {
+    "start": "node service",
+    "start:watch": "nodemon service",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "apollo-server-micro": "^2.6.2",
+    "graphql": "^14.3.1",
+    "lodash": "^4.17.11",
+    "micro": "^9.3.4",
+    "micro-compose": "0.0.3",
+    "micro-compress": "^1.0.0",
+    "microrouter": "^3.1.3",
+    "nodemon": "^1.19.1"
+  }
+}
