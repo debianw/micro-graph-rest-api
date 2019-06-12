@@ -1,33 +1,30 @@
 //
-const { users: usersMock } = require('../utils/mocks')
+const { gql } = require('apollo-server-micro')
+const { authCheck } = require('../utils/http-helpers')
 
 //
-const typeDefs = [
-  `
-    type User {
-      id: ID!
-      username: String
-      firstName: String
-      lastName: String
-    }
+const typeDefs = gql`
+  type User {
+    id: ID!
+    username: String
+    firstName: String
+    lastName: String
+  }
 
-    extend type Query {
-      users: [User]
-    }
-  `
-]
+  extend type Query {
+    users: [User]
+  }
+`
 
 //
 const resolvers = {
   Query: {
-    users: () => usersMock 
+    users: authCheck((_, args, { dataSources }) => dataSources.user.getAllUsers())
   }
 }
 
 //
-module.exports = (options = {})  => {
-  return {
-    typeDefs,
-    resolvers
-  }
+module.exports = {
+  typeDefs: [typeDefs],
+  resolvers
 }

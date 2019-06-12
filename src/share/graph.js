@@ -1,9 +1,12 @@
 //
-const typeDefs = [`
+const { gql } = require('apollo-server-micro')
+
+//
+const typeDefs = gql`
   type Query {
     sayHello: String
   }
-`]
+`
 
 //
 const resolvers = {
@@ -13,7 +16,7 @@ const resolvers = {
 }
 
 //
-module.exports = (options = {}) => ({
-  typeDefs,
+module.exports = {
+  typeDefs: [typeDefs],
   resolvers,
-})
+}

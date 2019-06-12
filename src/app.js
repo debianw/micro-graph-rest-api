@@ -17,8 +17,8 @@ module.exports = (options = {}) => {
 
   // Attach GraphQL Schema
   options.graph = {
-    share: share.graph(options),
-    user: user.graph(options)
+    share: share.graph,
+    user: user.graph,
   }
 
   // Attach REST Routes
@@ -26,7 +26,19 @@ module.exports = (options = {}) => {
     user: user.rest(options)
   }
 
-  const graphQLApi = createGraphAPI(options)
+  // Attach Datasources
+  options.dataSources = () => ({
+    user: new user.datasource({
+      dao: options.dao
+    })
+  })
+
+  const graphQLApi = createGraphAPI({
+    config: options.config,
+    graph: options.graph,
+    dataSources: options.dataSources,
+  })
+
   const restApi = createRestAPI(options)
 
   const serviceOptions = compose(
@@ -43,6 +55,6 @@ module.exports = (options = {}) => {
 
   //
   server.listen(4001, () => {
-    console.log(`server listening on port 4001`)
+    console.log(`🚀 server listening on port 4001`)
   })
 }

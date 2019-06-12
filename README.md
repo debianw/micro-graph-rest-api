@@ -1,6 +1,6 @@
 # GraphQL / REST Architecture support based on micro / Apollo GraphQL
 
-The purpose of this repo is to collect the best ideas of architecting an API that provides both GraphQL and REST
+The purpose of this repo is to collect the best ideas of architecting an API that provides both GraphQL and REST endpoints
 
 ## Install
 
@@ -14,7 +14,8 @@ npm run start:watch
 ```
 curl -X POST \
   http://localhost:4001/graphql \
-  -H 'Accept: */*' \
+  -H 'Authorization: Bearer demo' \
+  -H 'Content-Type: application/json' \
   -H 'accept-encoding: gzip, deflate' \
   -d '{
 	"query": "query getAllUsers { users { id, username, firstName, lastName } }",

@@ -1,9 +1,10 @@
 //
 const _ = require('lodash')
 const createGQLHandler = require('../utils/create-gql-handler')
+const createGraphContext = require('../utils/create-gql-context')
 
 //
-module.exports = ({ graph }) => {
+module.exports = ({ graph, dataSources, config }) => {
   const entityNames = Object.keys(graph)
   const getTypeDefs = (entityName => graph[entityName].typeDefs)
   const getResolvers = (entityName => graph[entityName].resolvers)
@@ -17,8 +18,12 @@ module.exports = ({ graph }) => {
     ...entityNames.map(getResolvers)
   ) 
 
+  const context = createGraphContext({ config })
+
   return createGQLHandler({
     typeDefs,
     resolvers,
+    dataSources,
+    context,
   })
 }
